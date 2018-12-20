@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<title>Categorias</title>
+</head>
+<body>
+	<h1>Crear categoria</h1>
+	<h2>Name</h2>
+	<input id="nameCategory" type="name" name="name">
+	<br>
+	<h2>Token</h2>
+	<input id="token" type="text" name="name">
+	<br>
+	<button id="boton" onclick="crearCategoria()">Enviar</button>
+</body>
+
+<script type="text/javascript">
+	function crearCategoria()
+	{
+		var categoryName = document.getElementById("nameCategory").value;
+		var authorization = sessionStorage.getItem('token');
+		$.ajax({
+			method: "POST",
+			url: "http://localhost:8888/prueba261118/public/index.php/api/category",
+			data:{ 
+				categoryName: categoryName 	
+			},
+			headers:{
+				Authorization: authorization
+			},
+			success: function(data){
+				console.log('success')
+			},
+			error: function(data){
+				var err = eval("(" + data.responseText + ")");
+				console.log(err.Message);
+			}
+		});
+	}	
+</script>
+</html>
